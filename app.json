@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "recall",
-    "slug": "recall",
+    "name": "tutor-crm",
+    "slug": "tutor-crm",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "recall",
+    "scheme": "tutor-crm",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"
