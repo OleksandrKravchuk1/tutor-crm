@@ -38,9 +38,8 @@ const FEATURES: FeatureItem[] = [
       web: "account_balance_wallet",
     },
     badge: (
-      <View className="items-center rounded-3xl bg-[#D4F7E7] px-6 py-1">
-        <Text className="text-sm font-black text-[#00A36C]">$480</Text>
-        <Text className="text-sm font-bold text-[#00A36C]">Paid</Text>
+      <View className="items-center rounded-3xl bg-[#D4F7E7] px-3 py-1.5">
+        <Text className="text-sm font-bold text-[#00A36C]">$480</Text>
       </View>
     ),
   },
