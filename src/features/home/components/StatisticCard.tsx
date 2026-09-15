@@ -11,7 +11,7 @@ export function StatisticCard({
   iconBgColor = "bg-primary-100",
 }: StatisticCardProps) {
   return (
-    <View className="flex-1 rounded-3xl border border-neutral-100 bg-white p-4 shadow-sm">
+    <View className="flex-1 rounded-3xl bg-white p-4 ios:shadow-soft android:shadow-md">
 
       <View className="flex-row items-center justify-between">
         <Text className="text-sm font-medium text-neutral-600">

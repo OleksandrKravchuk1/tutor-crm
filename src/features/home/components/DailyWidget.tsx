@@ -44,11 +44,11 @@ export function DailyWidget({
           tintColor="#FFFFFF"
           size={24}
         />
-        <View>
-          <Text className="text-md font-semibold text-white leading-3">
+        <View className=''>
+          <Text className="text-md font-semibold text-white leading-2">
             {onTrackPercentage}% On
           </Text>
-          <Text className="text-md font-semibold text-white leading-3">
+          <Text className="text-md font-semibold text-white leading-2">
             Track
           </Text>
         </View>

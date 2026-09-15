@@ -63,11 +63,18 @@ const FEATURES: FeatureItem[] = [
 
 export function FeaturePreviewCard() {
   return (
-    <View className="rounded-3xl bg-white px-3 py-6 shadow-sm gap-2.5">
+    <View className="rounded-3xl bg-white px-3 py-6 gap-6 
+    ios:shadow-soft 
+    android:shadow-md
+    ">
       {FEATURES.map((item) => (
         <View
           key={item.id}
-          className="flex-row items-center justify-between rounded-2xl bg-white p-3.5 shadow-lg"
+          className="
+          flex-row items-center justify-between rounded-2xl bg-white p-3.5 
+          ios:shadow-soft 
+          android:shadow-md
+          "
         >
           <View className="flex-1 flex-row items-center gap-3 pr-2">
             <View

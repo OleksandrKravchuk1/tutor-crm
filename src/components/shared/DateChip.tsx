@@ -12,7 +12,11 @@ export function DateChip({ date = new Date(), locale = "en-US" }: DateChipProps)
   const formattedDate = formatDate({ date, locale });
 
   return (
-    <View className="flex-row items-center gap-2 self-start rounded-full border border-neutral-100 bg-white px-3.5 py-1.5 shadow-sm">
+    <View className="
+    flex-row items-center gap-2 self-start rounded-full bg-white px-3.5 py-1.5 
+    ios:shadow-soft
+    android:shadow-md
+    ">
       <SymbolView
         name={{
           ios: "calendar",

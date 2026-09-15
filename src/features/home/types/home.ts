@@ -1,4 +1,3 @@
-import { StudentCardProps } from "@/features/students/components/StudentCard";
 import { SymbolViewProps } from "expo-symbols";
 import { ReactNode } from "react";
 
@@ -18,6 +17,17 @@ export type StatisticCardProps = {
   iconBgColor?: string;
 };
 
-export interface SessionItem extends StudentCardProps {
+export interface ScheduleCardProps {
+  name?: string;
+  subject?: string;
+  time?: string;
+  isPaid?: boolean;
+  topic?: string;
+  isOnline?: boolean;
+  onMarkComplete?: () => void;
+  onPress?: () => void;
+}
+
+export interface SessionItem extends ScheduleCardProps {
   id: string;
-}
+}
