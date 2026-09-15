@@ -15,3 +15,15 @@ export function formatDate({ date, locale }: FormatDateProps): string {
     day: "numeric",
   }).format(dateObj);
 }
+
+export function getInitials(name: string): string {
+  return name
+    ? name
+      .split(" ")
+      .filter(Boolean)
+      .map((part) => part[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2)
+    : "ST";
+}

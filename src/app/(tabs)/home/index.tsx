@@ -1,17 +1,17 @@
 import { palette } from '@/constants/palette';
 import { DailyWidget } from '@/features/home/components/DailyWidget';
 import { HomeHeader } from '@/features/home/components/HomeHeader';
+import { ScheduleCard } from '@/features/home/components/ScheduleCard';
 import { StatisticCard } from '@/features/home/components/StatisticCard';
 import { TODAY_SESSIONS } from '@/features/home/data/todaySessions';
-import { StudentCard } from '@/features/students/components/StudentCard';
 import { SymbolView } from 'expo-symbols';
 import { FlatList, Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView className="flex-1 bg-white px-5 pt-4">
-      <HomeHeader name="Oleksandr`" />
+    <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-white px-5 pt-4">
+      <HomeHeader name="Oleksandr" />
       <View className="mt-5 gap-4">
         <DailyWidget />
 
@@ -59,15 +59,9 @@ export default function HomeScreen() {
 
         <View className="flex-row items-center justify-between">
           <Text className="text-2xl font-bold">{"Today's Schedule"}</Text>
-          <View className="items-center justify-center rounded-2xl bg-primary-200 px-4 py-0.5">
+          <View className="items-center justify-center rounded-2xl bg-primary-200 ml-2 px-4 py-0.5">
             <Text className="text-[15px] font-semibold text-primary-700">4 lessons</Text>
           </View>
-          <Pressable
-            className="items-center justify-center rounded-2xl px-4 py-1"
-            onPress={() => { }}
-          >
-            <Text className="text-md font-bold text-primary-700">Timeline View</Text>
-          </Pressable>
         </View>
       </View>
 
@@ -76,7 +70,7 @@ export default function HomeScreen() {
         data={TODAY_SESSIONS}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <StudentCard
+          <ScheduleCard
             name={item.name}
             subject={item.subject}
             time={item.time}
@@ -89,6 +83,14 @@ export default function HomeScreen() {
           />
         )}
         ItemSeparatorComponent={() => <View className="h-3.5" />}
+        ListFooterComponent={
+          <Pressable
+            className="mt-3.5 items-center justify-center rounded-2xl px-4 py-2"
+            onPress={() => { }}
+          >
+            <Text className="text-lg font-bold text-primary-700">Timeline View</Text>
+          </Pressable>
+        }
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 24 }}
       />

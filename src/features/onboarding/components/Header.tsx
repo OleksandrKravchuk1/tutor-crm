@@ -9,7 +9,7 @@ export function Header({
   return (
     <View className="flex-row items-center justify-between">
       <View className="flex-row items-center gap-3">
-        <View className="h-11 w-11 items-center justify-center rounded-2xl bg-primary-700 shadow-sm">
+        <View className="h-11 w-11 items-center justify-center rounded-2xl bg-primary-700 shadow">
           <SymbolView
             name={{
               ios: "graduationcap.fill",
