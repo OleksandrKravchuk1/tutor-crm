@@ -6,6 +6,8 @@ export function AddStudentButton({ onPress }: AddStudentButtonProps) {
   return (
     <Pressable
       onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel="Add student"
       className='
       h-12 w-12 items-center justify-center rounded-2xl bg-primary-700 
       active:opacity-80 

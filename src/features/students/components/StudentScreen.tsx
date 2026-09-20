@@ -11,12 +11,19 @@ import { FilterChips } from "./StudentFilterTabs";
 
 export function StudentScreen() {
   const [filter, setFilter] = useState<StudentFilter>("all");
+  const [search, setSearch] = useState("");
+  const query = search.trim().toLowerCase();
 
   const filteredStudents = STUDENTS_DATA.filter((student) => {
-    if (filter === "active") return student.isActive;
-    if (filter === "inactive") return !student.isActive;
-    if (filter === "owing") return student.balanceType === "owing";
-    return true;
+    const matchesFilter =
+      filter === "active" ? student.isActive :
+        filter === "inactive" ? !student.isActive :
+          filter === "owing" ? student.balanceType === "owing" :
+            true;
+    const matchesSearch =
+      !query || [student.name, student.subject, student.grade]
+        .some((value) => value?.toLowerCase().includes(query));
+    return matchesFilter && matchesSearch;
   });
 
   return (
@@ -25,7 +32,11 @@ export function StudentScreen() {
       className="flex-1 px-4 pt-4 ios:mt-40"
     >
       <View className='flex-row gap-2'>
-        <SearchInput />
+        <SearchInput
+          value={search}
+          onChangeText={setSearch}
+          placeholder="Search students..."
+        />
         <AddStudentButton onPress={() => alert('Coming soon...')} />
       </View>
 
