@@ -4,10 +4,10 @@ import { Animated, Easing, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useCalendarSchedule } from "../hooks/useCalendarSchedule";
 import { CalendarViewMode, TimelineItem, TimelineLessonItem } from "../types/calendar";
-import { CalendarDayView } from "./CalendarDayView";
-import { CalendarHeader } from "./CalendarHeader";
-import { CalendarListView } from "./CalendarListView";
-import { CalendarWeekView } from "./CalendarWeekView";
+import { CalendarDayView } from "./views/CalendarDayView";
+import { CalendarHeader } from "./header/CalendarHeader";
+import { CalendarListView } from "./views/CalendarListView";
+import { CalendarWeekView } from "./views/CalendarWeekView";
 
 const VIEW_MODE_ORDER: Record<CalendarViewMode, number> = {
   day: 0,

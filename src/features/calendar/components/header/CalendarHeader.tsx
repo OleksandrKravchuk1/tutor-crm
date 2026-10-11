@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { CalendarHeaderProps } from "../types/calendar";
+import { CalendarHeaderProps } from "../../types/calendar";
 import { CalendarViewModeToggle } from "./CalendarViewModeToggle";
 
 export function CalendarHeader(props: CalendarHeaderProps) {

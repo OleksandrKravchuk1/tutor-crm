@@ -5,8 +5,8 @@ import {
   Text,
   View,
 } from "react-native";
-import { VIEW_MODE_LABELS, VIEW_MODES } from "../constants/calendar";
-import { CalendarViewMode } from "../types/calendar";
+import { VIEW_MODE_LABELS, VIEW_MODES } from "../../constants/calendar";
+import { CalendarViewMode } from "../../types/calendar";
 
 const TAB_WIDTH = 58;
 const PADDING = 4;

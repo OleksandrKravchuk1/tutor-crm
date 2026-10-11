@@ -1,9 +1,9 @@
 import { palette } from "@/constants/palette";
 import { SymbolView } from "expo-symbols";
 import { FlatList, Text, View } from "react-native";
-import { TimelineItem } from "../types/calendar";
-import { CalendarDateStrip } from "./CalendarDateStrip";
-import { TimelineItemRow } from "./TimelineItemRow";
+import { TimelineItem } from "../../types/calendar";
+import { CalendarDateStrip } from "../CalendarDateStrip";
+import { TimelineItemRow } from "../timeline/TimelineItemRow";
 
 export type CalendarDayViewProps = {
   selectedDate: Date;

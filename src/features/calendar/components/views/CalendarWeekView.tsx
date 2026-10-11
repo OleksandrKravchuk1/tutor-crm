@@ -2,9 +2,9 @@ import { palette } from "@/constants/palette";
 import { SymbolView } from "expo-symbols";
 import { useMemo, useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
-import { DayScheduleGroup, TimelineItem, WeekSchedule } from "../types/calendar";
-import { formatFullDate, isSameDay, isToday } from "../utils/date";
-import { TimelineItemRow } from "./TimelineItemRow";
+import { DayScheduleGroup, TimelineItem, WeekSchedule } from "../../types/calendar";
+import { formatFullDate, isSameDay, isToday } from "../../utils/date";
+import { TimelineItemRow } from "../timeline/TimelineItemRow";
 
 export type CalendarWeekViewProps = {
   weekSchedule: WeekSchedule;

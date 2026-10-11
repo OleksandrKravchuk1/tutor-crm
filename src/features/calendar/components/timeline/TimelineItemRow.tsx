@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { TimelineItem } from "../types/calendar";
+import { TimelineItem } from "../../types/calendar";
 import { TimelineLessonCard } from "./TimelineLessonCard";
 import { TimelineSlotCard } from "./TimelineSlotCard";
 

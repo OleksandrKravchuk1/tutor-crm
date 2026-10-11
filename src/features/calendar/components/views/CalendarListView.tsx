@@ -1,13 +1,13 @@
 import { palette } from "@/constants/palette";
 import { SymbolView } from "expo-symbols";
 import { FlatList, Pressable, Text, View } from "react-native";
-import { LIST_FILTER_OPTIONS } from "../constants/calendar";
+import { LIST_FILTER_OPTIONS } from "../../constants/calendar";
 import {
   ListFilterOption,
   ListSection,
   TimelineLessonItem,
-} from "../types/calendar";
-import { TimelineLessonCard } from "./TimelineLessonCard";
+} from "../../types/calendar";
+import { TimelineLessonCard } from "../timeline/TimelineLessonCard";
 
 export type CalendarListViewProps = {
   sections: ListSection[];

@@ -1,6 +1,6 @@
 import { SymbolView } from "expo-symbols";
 import { Pressable, Text, View } from "react-native";
-import { TimelineSlotItem } from "../types/calendar";
+import { TimelineSlotItem } from "../../types/calendar";
 
 type TimelineSlotCardProps = {
   item: TimelineSlotItem;
