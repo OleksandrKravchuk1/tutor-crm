@@ -4,9 +4,8 @@ export default function CalendarLayout() {
   return (
     <Stack
       screenOptions={{
-        headerShown: true,
-        headerTitle: 'Calendar',
-        headerLargeTitleEnabled: true
+        headerShown: false,
+
       }}
     >
       <Stack.Screen name="index" />
