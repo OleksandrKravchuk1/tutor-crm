@@ -6,7 +6,10 @@ export default function SettingsLayout() {
       screenOptions={{
         headerShown: true,
         headerTitle: 'Settings',
-        headerLargeTitleEnabled: true
+        headerLargeTitleEnabled: true,
+        headerStyle: { backgroundColor: 'white' },
+        headerLargeStyle: { backgroundColor: 'white' },
+        contentStyle: { backgroundColor: 'white' },
       }}
     >
       <Stack.Screen name="index" />
