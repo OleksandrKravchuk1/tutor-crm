@@ -1,4 +1,4 @@
-import { StudentScreen } from "@/features/students/components/StudentScreen";
+import { StudentScreen } from "@/features/students";
 
 export default function StudentsTabScreen() {
   return <StudentScreen />

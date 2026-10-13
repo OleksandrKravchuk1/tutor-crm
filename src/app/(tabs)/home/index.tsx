@@ -1,16 +1,18 @@
-import { palette } from '@/constants/palette';
-import { DailyWidget } from '@/features/home/components/DailyWidget';
-import { HomeHeader } from '@/features/home/components/HomeHeader';
-import { ScheduleCard } from '@/features/home/components/ScheduleCard';
-import { StatisticCard } from '@/features/home/components/StatisticCard';
-import { TODAY_SESSIONS } from '@/features/home/data/todaySessions';
-import { SymbolView } from 'expo-symbols';
-import { FlatList, Pressable, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { palette } from "@/constants/palette";
+import {
+  DailyWidget,
+  HomeHeader,
+  ScheduleCard,
+  StatisticCard,
+  TODAY_SESSIONS,
+} from "@/features/home";
+import { SymbolView } from "expo-symbols";
+import { FlatList, Pressable, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-white px-5 pt-4">
+    <SafeAreaView edges={["top", "left", "right"]} className="flex-1 bg-white px-5 pt-4">
       <HomeHeader name="Oleksandr" />
       <View className="mt-5 gap-4">
         <DailyWidget />
