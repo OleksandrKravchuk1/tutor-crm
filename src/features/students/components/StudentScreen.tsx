@@ -1,5 +1,5 @@
 import { SearchInput } from "@/components/shared/SearchInput";
-import { PendingBalanceCard } from "@/features/billing/components/PendibgBalanceCard";
+import { PendingBalanceCard } from "@/features/billing";
 import { useState } from "react";
 import { FlatList, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -7,7 +7,7 @@ import { STUDENTS_DATA } from "../data/students";
 import { StudentFilter } from "../types/students";
 import { AddStudentButton } from "./AddStudentButton";
 import { StudentCard } from "./StudentCard";
-import { FilterChips } from "./StudentFilterTabs";
+import { FilterChips } from "./FilterChips";
 
 export function StudentScreen() {
   const [filter, setFilter] = useState<StudentFilter>("all");
