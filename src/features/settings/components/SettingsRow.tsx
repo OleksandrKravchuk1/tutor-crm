@@ -1,6 +1,8 @@
+import { AppSwitch } from "@/components/shared/AppSwitch";
+import { StatusPill } from "@/components/shared/StatusPill";
 import { palette } from "@/constants/palette";
 import { SymbolView } from "expo-symbols";
-import { Pressable, Switch, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { SettingsRowAccessory, SettingsRowProps } from "../types/settings";
 
 const DESTRUCTIVE_COLOR = "#E11D48";
@@ -9,21 +11,12 @@ function RowAccessory({ accessory }: { accessory: SettingsRowAccessory }) {
   switch (accessory.type) {
     case "switch":
       return (
-        <Switch
-          value={accessory.value}
-          onValueChange={accessory.onValueChange}
-          trackColor={{ false: palette.neutral[200], true: palette.primary[600] }}
-          thumbColor="#FFFFFF"
-          ios_backgroundColor={palette.neutral[200]}
-        />
+        <AppSwitch value={accessory.value} onValueChange={accessory.onValueChange} />
       );
     case "status":
       return (
         <View className="flex-row items-center gap-1.5">
-          <View className="flex-row items-center gap-1.5 rounded-full border border-emerald-100 bg-emerald-50 px-2.5 py-1">
-            <View className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            <Text className="text-sm font-semibold text-emerald-600">{accessory.label}</Text>
-          </View>
+          <StatusPill label={accessory.label} />
           <Chevron />
         </View>
       );

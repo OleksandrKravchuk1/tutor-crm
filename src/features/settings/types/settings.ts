@@ -1,3 +1,4 @@
+import type { PracticeSettings } from "@/features/practice";
 import { SymbolViewProps } from "expo-symbols";
 import { ReactNode } from "react";
 
@@ -50,5 +51,5 @@ export type PracticePreference = {
   icon: SettingsIcon;
   title: string;
   subtitle: string;
-  value: string;
+  getValue: (settings: PracticeSettings) => string;
 };

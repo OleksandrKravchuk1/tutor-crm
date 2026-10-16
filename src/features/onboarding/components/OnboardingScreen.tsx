@@ -2,17 +2,15 @@ import { router } from "expo-router";
 import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import {
-  FeaturePreviewCard,
-  FooterActions,
-  Header,
-  HeroSection,
-  ProofBadge,
-} from "@/features/onboarding";
+import { FeaturePreviewCard } from "./FeaturePreviewCard";
+import { FooterActions } from "./FooterActions";
+import { Header } from "./Header";
+import { HeroSection } from "./HeroSection";
+import { ProofBadge } from "./ProofBadge";
 
-export default function OnboardingScreen() {
+export function OnboardingScreen() {
   const handleGetStarted = () => {
-    router.replace("/(tabs)/home");
+    router.push("/(onboarding)/register");
   };
 
   const handleLogin = () => {

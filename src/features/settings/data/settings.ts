@@ -1,3 +1,8 @@
+import {
+  formatCancellationWindow,
+  formatHourlyRate,
+  formatLessonLength,
+} from "@/features/practice";
 import { PracticePreference } from "../types/settings";
 
 export const APP_VERSION = "v2.4.1";
@@ -22,20 +27,20 @@ export const PRACTICE_PREFERENCES: PracticePreference[] = [
     icon: { ios: "banknote", android: "payments", web: "payments" },
     title: "Hourly Rate Default",
     subtitle: "Standard 1-on-1 tutoring charge",
-    value: "$75 / hr",
+    getValue: (settings) => formatHourlyRate(settings.hourlyRate),
   },
   {
     id: "lesson-duration",
     icon: { ios: "clock", android: "schedule", web: "schedule" },
     title: "Lesson Duration",
     subtitle: "Default calendar booking block",
-    value: "60 mins",
+    getValue: (settings) => formatLessonLength(settings.lessonLength),
   },
   {
     id: "cancellation-window",
     icon: { ios: "calendar.badge.exclamationmark", android: "event_busy", web: "event_busy" },
     title: "Cancellation Window",
     subtitle: "Minimum advance reschedule time",
-    value: "24 hrs",
+    getValue: (settings) => formatCancellationWindow(settings.cancellationHours),
   },
 ];
