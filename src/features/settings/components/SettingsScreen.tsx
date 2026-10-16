@@ -1,3 +1,4 @@
+import { usePracticeSettings, useSavePracticeSettings } from "@/features/practice";
 import { useState } from "react";
 import { ScrollView } from "react-native";
 import {
@@ -14,7 +15,13 @@ import { SettingsSection } from "./SettingsSection";
 
 export function SettingsScreen() {
   const [pushEnabled, setPushEnabled] = useState(true);
-  const [parentRemindersEnabled, setParentRemindersEnabled] = useState(true);
+  const { data: practiceSettings } = usePracticeSettings();
+  const savePracticeSettings = useSavePracticeSettings();
+
+  const setParentRemindersEnabled = (remindersEnabled: boolean) => {
+    if (!practiceSettings) return;
+    savePracticeSettings.mutate({ ...practiceSettings, remindersEnabled });
+  };
 
   return (
     <ScrollView
@@ -49,7 +56,10 @@ export function SettingsScreen() {
             icon={preference.icon}
             title={preference.title}
             subtitle={preference.subtitle}
-            accessory={{ type: "chevron", value: preference.value }}
+            accessory={{
+              type: "chevron",
+              value: practiceSettings ? preference.getValue(practiceSettings) : "—",
+            }}
             onPress={() => alert(`Edit ${preference.title}`)}
           />
         ))}
@@ -68,7 +78,7 @@ export function SettingsScreen() {
           subtitle="Sends SMS 24 hours prior to session"
           accessory={{
             type: "switch",
-            value: parentRemindersEnabled,
+            value: practiceSettings?.remindersEnabled ?? false,
             onValueChange: setParentRemindersEnabled,
           }}
         />

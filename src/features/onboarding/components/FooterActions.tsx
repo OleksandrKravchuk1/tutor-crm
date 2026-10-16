@@ -1,4 +1,4 @@
-import { SymbolView } from "expo-symbols";
+import { PrimaryButton } from "@/components/shared/PrimaryButton";
 import { Pressable, Text, View } from "react-native";
 import { FooterActionsProps } from "../types/onboarding";
 
@@ -10,21 +10,7 @@ export function FooterActions({
 }: FooterActionsProps) {
   return (
     <View className="gap-3.5 pt-2">
-      <Pressable
-        onPress={onGetStarted}
-        className="flex-row items-center justify-center gap-2 rounded-3xl bg-primary-700 py-4 shadow-md active:opacity-90"
-      >
-        <Text className="text-lg font-bold text-white">{buttonText}</Text>
-        <SymbolView
-          name={{
-            ios: "arrow.right",
-            android: "arrow_forward",
-            web: "arrow_forward",
-          }}
-          size={16}
-          tintColor="#FFFFFF"
-        />
-      </Pressable>
+      <PrimaryButton label={buttonText} onPress={onGetStarted} />
 
       {/* Login link */}
       <View className="flex-row items-center justify-center">

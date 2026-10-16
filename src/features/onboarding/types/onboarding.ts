@@ -1,5 +1,16 @@
+import type { PaymentPolicyId } from "@/features/practice";
 import { SymbolViewProps } from "expo-symbols";
 import { ReactNode } from "react";
+import { z } from "zod";
+import { registerSchema, subjectIdSchema } from "../schemas/register";
+
+export type SubjectId = z.infer<typeof subjectIdSchema>;
+export type RegisterFormValues = z.input<typeof registerSchema>;
+export type RegisterPayload = z.output<typeof registerSchema>;
+
+export type TutorAccount = Omit<RegisterPayload, "password" | "acceptedTerms"> & {
+  id: string;
+};
 
 export type HeaderProps = {
   title?: string;
@@ -25,4 +36,63 @@ export type FeatureItem = {
   icon: SymbolViewProps["name"];
   iconBgColor: string;
   badge: ReactNode;
+};
+
+export type OnboardingIcon = SymbolViewProps["name"];
+
+export type OnboardingNavHeaderProps = {
+  title: string;
+  onBack?: () => void;
+};
+
+export type SubjectOption = {
+  id: SubjectId;
+  label: string;
+  icon: OnboardingIcon;
+  fullWidth?: boolean;
+};
+
+export type SubjectPickerProps = {
+  selected: SubjectId;
+  onSelect: (id: SubjectId) => void;
+};
+
+export type SetupCardProps = {
+  icon: OnboardingIcon;
+  title: string;
+  subtitle: string;
+  accessory?: ReactNode;
+  children?: ReactNode;
+};
+
+export type HourlyRateCardProps = {
+  rate: number;
+  onChange: (rate: number) => void;
+  currency: string;
+  averageRange: string;
+  error?: string;
+};
+
+export type LessonLengthPickerProps = {
+  selected: number;
+  onSelect: (minutes: number) => void;
+};
+
+export type PaymentPolicyPickerProps = {
+  selected: PaymentPolicyId;
+  onSelect: (id: PaymentPolicyId) => void;
+};
+
+export type CancellationWindowSelectProps = {
+  selected: number;
+  onSelect: (hours: number) => void;
+};
+
+export type ReminderToggleCardProps = {
+  enabled: boolean;
+  onChange: (enabled: boolean) => void;
+};
+
+export type SetupProgressBarProps = {
+  progress: number;
 };
