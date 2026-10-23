@@ -1,0 +1,190 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum AccountRole {
+  TUTOR
+  STUDENT
+  ADMIN
+}
+
+// Mirrors SUBJECT_IDS in @tutor-crm/shared
+enum SubjectCategory {
+  STEM       @map("stem")
+  LANGUAGES  @map("languages")
+  TEST_PREP  @map("test-prep")
+  MUSIC_ARTS @map("music-arts")
+  OTHER      @map("other")
+}
+
+// Mirrors PAYMENT_POLICY_IDS in @tutor-crm/shared
+enum PaymentPolicy {
+  PREPAID    @map("prepaid")
+  PER_LESSON @map("per-lesson")
+}
+
+enum TutorStudentStatus {
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+enum LessonStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  TRANSFER
+  OTHER
+}
+
+model Account {
+  id           String      @id @default(uuid())
+  // Stored lowercased; the shared registerSchema normalizes it
+  email        String      @unique
+  passwordHash String
+  role         AccountRole
+  createdAt    DateTime    @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime    @updatedAt @db.Timestamptz(3)
+
+  tutorProfile   TutorProfile?
+  studentProfile StudentProfile?
+  refreshTokens  RefreshToken[]
+}
+
+model RefreshToken {
+  id        String    @id @default(uuid())
+  accountId String
+  account   Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime  @db.Timestamptz(3)
+  revokedAt DateTime? @db.Timestamptz(3)
+  createdAt DateTime  @default(now()) @db.Timestamptz(3)
+
+  @@index([accountId])
+}
+
+model TutorProfile {
+  id             String          @id @default(uuid())
+  accountId      String          @unique
+  account        Account         @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  fullName       String
+  primarySubject SubjectCategory
+  phone          String?
+  timezone       String          @default("Europe/Kyiv")
+  // ISO 4217 code; rates and lesson prices are in this currency
+  currency       String          @default("USD") @db.Char(3)
+
+  hourlyRate          Decimal       @default(75) @db.Decimal(10, 2)
+  lessonLengthMinutes Int           @default(60)
+  paymentPolicy       PaymentPolicy @default(PREPAID)
+  cancellationHours   Int           @default(24)
+  remindersEnabled    Boolean       @default(true)
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  students TutorStudent[]
+  subjects Subject[]
+}
+
+model StudentProfile {
+  id        String    @id @default(uuid())
+  accountId String?   @unique
+  account   Account?  @relation(fields: [accountId], references: [id], onDelete: SetNull)
+  fullName  String
+  phone     String?
+  birthDate DateTime? @db.Date
+  createdAt DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime  @updatedAt @db.Timestamptz(3)
+
+  tutors TutorStudent[]
+}
+
+model TutorStudent {
+  id         String             @id @default(uuid())
+  tutorId    String
+  tutor      TutorProfile       @relation(fields: [tutorId], references: [id], onDelete: Cascade)
+  studentId  String
+  student    StudentProfile     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  status     TutorStudentStatus @default(ACTIVE)
+  hourlyRate Decimal?           @db.Decimal(10, 2)
+  notes      String?
+  createdAt  DateTime           @default(now()) @db.Timestamptz(3)
+  updatedAt  DateTime           @updatedAt @db.Timestamptz(3)
+
+  lessons  Lesson[]
+  payments Payment[]
+
+  @@unique([tutorId, studentId])
+  @@index([studentId])
+}
+
+model Subject {
+  id      String       @id @default(uuid())
+  tutorId String
+  tutor   TutorProfile @relation(fields: [tutorId], references: [id], onDelete: Cascade)
+  name    String
+
+  lessons Lesson[]
+
+  @@unique([tutorId, name])
+}
+
+model Lesson {
+  id             String       @id @default(uuid())
+  tutorStudentId String
+  tutorStudent   TutorStudent @relation(fields: [tutorStudentId], references: [id], onDelete: Cascade)
+  subjectId      String?
+  subject        Subject?     @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  startsAt       DateTime     @db.Timestamptz(3)
+  endsAt         DateTime     @db.Timestamptz(3)
+  status         LessonStatus @default(SCHEDULED)
+  price          Decimal      @db.Decimal(10, 2)
+  currency       String       @db.Char(3)
+  topic          String?
+  homework       String?
+  notes          String?
+  createdAt      DateTime     @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime     @updatedAt @db.Timestamptz(3)
+
+  payments Payment[]
+
+  @@index([tutorStudentId, startsAt])
+}
+
+model Payment {
+  id             String        @id @default(uuid())
+  tutorStudentId String
+  tutorStudent   TutorStudent  @relation(fields: [tutorStudentId], references: [id], onDelete: Cascade)
+  // Null for prepaid payments not tied to one lesson; must share tutorStudentId — enforced in the API
+  lessonId       String?
+  lesson         Lesson?       @relation(fields: [lessonId], references: [id], onDelete: SetNull)
+  amount         Decimal       @db.Decimal(10, 2)
+  // Snapshot of the tutor's currency when the payment was recorded
+  currency       String        @db.Char(3)
+  method         PaymentMethod @default(CASH)
+  paidAt         DateTime      @default(now()) @db.Timestamptz(3)
+  note           String?
+  createdAt      DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime      @updatedAt @db.Timestamptz(3)
+
+  @@index([tutorStudentId, paidAt])
+  @@index([lessonId])
+}
