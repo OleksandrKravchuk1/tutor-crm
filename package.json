@@ -16,5 +16,8 @@
     "shared:dev": "npm run dev -w @tutor-crm/shared",
     "lint": "npm run lint --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "devDependencies": {
+    "prisma": "^7.10.1"
   }
 }
