@@ -11,6 +11,6 @@ export class AuthController {
   register(
     @Body(new ZodValidationPipe(registerSchema)) payload: RegisterPayload,
   ): Promise<TutorAccount> {
-    return this.authService.register(payload);
+    return this.authService.registerTutor(payload);
   }
 }
