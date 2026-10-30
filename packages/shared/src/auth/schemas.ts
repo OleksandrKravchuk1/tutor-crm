@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MIN_PASSWORD_LENGTH, SUBJECT_IDS } from "./constants";
+import { MAX_PASSWORD_LENGTH, MIN_PASSWORD_LENGTH, SUBJECT_IDS } from "./constants";
 
 export const subjectIdSchema = z.enum(SUBJECT_IDS);
 
@@ -8,7 +8,8 @@ export const registerSchema = z.object({
   email: z.string().trim().toLowerCase().pipe(z.email("Enter a valid email address")),
   password: z
     .string()
-    .min(MIN_PASSWORD_LENGTH, `Password must be at least ${MIN_PASSWORD_LENGTH} characters`),
+    .min(MIN_PASSWORD_LENGTH, `Password must be at least ${MIN_PASSWORD_LENGTH} characters`)
+    .max(MAX_PASSWORD_LENGTH, `Password must be at most ${MAX_PASSWORD_LENGTH} characters`),
   subject: subjectIdSchema,
   acceptedTerms: z.boolean().refine((accepted) => accepted, "Please accept the terms to continue"),
 });
